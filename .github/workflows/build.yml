@@ -1,0 +1,35 @@
+name: Build Telegram APKs
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Execute Build Shell Script
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Upload APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: telegram-apks
+          path: Telegram/TMessagesProj/build/outputs/apk/
+          retention-days: 7
+
+      - name: Upload Mapping Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: telegram-mappings
+          path: Telegram/TMessagesProj/build/outputs/mapping/
+          retention-days: 7
