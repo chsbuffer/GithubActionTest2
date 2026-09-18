@@ -4,6 +4,8 @@ set -euo pipefail
 # 1. 克隆代码仓库及指定子模块
 git clone https://github.com/DrKLO/Telegram --recursive --filter blob:none
 
+cd Telegram
+
 sed -i 's/#-dontoptimize/-dontoptimize' TMessagesProj/proguard-rules.pro
 sed -i 's/#-dontobfuscate/-dontobfuscate' TMessagesProj/proguard-rules.pro
 
