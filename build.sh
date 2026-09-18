@@ -54,7 +54,8 @@ CMD mkdir -p /home/source/TMessagesProj/build/outputs/apk && \
         :TMessagesProj_AppStandalone:assembleAfatStandalone \
         :TMessagesProj_App:assembleAfatRelease && \
     cp -R /home/gradle/TMessagesProj_App/build/outputs/apk/. /home/source/TMessagesProj/build/outputs/apk && \
-    cp -R /home/gradle/TMessagesProj_AppStandalone/build/outputs/apk/. /home/source/TMessagesProj/build/outputs/apk && \
+    cp -R /home/gradle/TMessagesProj_AppStandalone/build/outputs/apk/. /home/source/TMessagesProj/build/outputs/apk
+
 EOF
 
 # 3. 构建并运行容器导出产物
