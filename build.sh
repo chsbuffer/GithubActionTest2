@@ -6,8 +6,8 @@ git clone https://github.com/DrKLO/Telegram --recursive --filter blob:none
 
 cd Telegram
 
-sed -i 's/#-dontoptimize/-dontoptimize' TMessagesProj/proguard-rules.pro
-sed -i 's/#-dontobfuscate/-dontobfuscate' TMessagesProj/proguard-rules.pro
+sed -i 's/#-dontoptimize/-dontoptimize/' TMessagesProj/proguard-rules.pro
+sed -i 's/#-dontobfuscate/-dontobfuscate/' TMessagesProj/proguard-rules.pro
 
 # 2. 动态生成 Dockerfile (修正了 CMD 中的多行链接符错误)
 echo "==> Generating Dockerfile..."
