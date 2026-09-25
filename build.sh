@@ -1,15 +1,18 @@
 #!/bin/bash
 set -euo pipefail
 
-# 1. 克隆代码仓库及指定子模块
+# 克隆代码仓库及指定子模块
 git clone https://github.com/DrKLO/Telegram --recursive --filter blob:none
 
 cd Telegram
 
+# 关闭优化、混淆，只保留 arm64
 sed -i 's/#-dontoptimize/-dontoptimize/' TMessagesProj/proguard-rules.pro
 sed -i 's/#-dontobfuscate/-dontobfuscate/' TMessagesProj/proguard-rules.pro
+sed -i 's/abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"/abiFilters "arm64-v8a"/' TMessagesProj_App/build.gradle TMessagesProj_AppStandalone/build.gradle
+sed -i 's/defaultConfig {/defaultConfig { ndk { abiFilters "arm64-v8a" }/' TMessagesProj/build.gradle
 
-# 2. 动态生成 Dockerfile (修正了 CMD 中的多行链接符错误)
+# 生成 Dockerfile
 echo "==> Generating Dockerfile..."
 cat << 'EOF' > Dockerfile
 FROM gradle:8.13-jdk17
@@ -58,7 +61,7 @@ CMD mkdir -p /home/source/TMessagesProj/build/outputs/apk && \
 
 EOF
 
-# 3. 构建并运行容器导出产物
+# 构建并运行容器导出产物
 echo "==> Building Docker image..."
 docker build -f Dockerfile -t telegram-builder:latest .
 
